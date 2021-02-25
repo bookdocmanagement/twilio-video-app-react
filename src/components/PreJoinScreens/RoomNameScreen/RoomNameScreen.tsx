@@ -69,13 +69,9 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
   return (
     <>
       <Typography variant="h5" className={classes.gutterBottom}>
-        Join a Room
+        Join Video Room
       </Typography>
-      <Typography variant="body1">
-        {hasUsername
-          ? "Enter the name of a room you'd like to join."
-          : "Enter your name and the name of a room you'd like to join"}
-      </Typography>
+      <Typography variant="body1">Edit your name and join</Typography>
       <form onSubmit={handleSubmit}>
         <div className={classes.inputContainer}>
           {!hasUsername && (
