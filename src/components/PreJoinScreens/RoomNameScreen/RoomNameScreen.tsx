@@ -1,5 +1,6 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect } from 'react';
 import { Typography, makeStyles, TextField, Grid, Button, InputLabel, Theme } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
 import { useAppState } from '../../../state';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -49,6 +50,22 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
 
   const hasUsername = !window.location.search.includes('customIdentity=true') && user?.displayName;
 
+  const params = new URLSearchParams(useLocation().search);
+  const nameParams = params.get('name');
+  const roomParams = params.get('room');
+
+  useEffect(() => {
+    if (nameParams) {
+      setName(nameParams || '');
+    }
+  }, [nameParams]);
+
+  useEffect(() => {
+    if (roomParams) {
+      setRoomName(roomParams || '');
+    }
+  }, [roomParams]);
+
   return (
     <>
       <Typography variant="h5" className={classes.gutterBottom}>
@@ -88,6 +105,7 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
               size="small"
               value={roomName}
               onChange={handleRoomNameChange}
+              disabled
             />
           </div>
         </div>
