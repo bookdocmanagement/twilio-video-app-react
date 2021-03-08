@@ -10,6 +10,7 @@ window.TwilioVideo = Video;
 export default function useRoom(localTracks: LocalTrack[], onError: Callback, options?: ConnectOptions) {
   const [room, setRoom] = useState<Room>(new EventEmitter() as Room);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const optionsRef = useRef(options);
 
   useEffect(() => {
@@ -59,6 +60,9 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
             // Add a listener to disconnect from the room when a mobile user closes their browser
             window.addEventListener('pagehide', disconnect);
           }
+
+          // Set isRecording
+          setIsRecording(newRoom.isRecording);
         },
         error => {
           onError(error);
@@ -69,5 +73,5 @@ export default function useRoom(localTracks: LocalTrack[], onError: Callback, op
     [localTracks, onError]
   );
 
-  return { room, isConnecting, connect };
+  return { room, isConnecting, isRecording, connect };
 }

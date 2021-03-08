@@ -29,6 +29,7 @@ export interface IVideoContext {
   room: Room;
   localTracks: (LocalAudioTrack | LocalVideoTrack)[];
   isConnecting: boolean;
+  isRecording: boolean;
   connect: (token: string) => Promise<void>;
   onError: ErrorCallback;
   onDisconnect: Callback;
@@ -66,7 +67,7 @@ export function VideoProvider({ options, children, onError = () => {}, onDisconn
     removeLocalVideoTrack,
     getAudioAndVideoTracks,
   } = useLocalTracks();
-  const { room, isConnecting, connect } = useRoom(localTracks, onErrorCallback, options);
+  const { room, isConnecting, isRecording, connect } = useRoom(localTracks, onErrorCallback, options);
 
   // Register onError and onDisconnect callback functions.
   useHandleRoomDisconnectionErrors(room, onError);
@@ -80,6 +81,7 @@ export function VideoProvider({ options, children, onError = () => {}, onDisconn
         room,
         localTracks,
         isConnecting,
+        isRecording,
         onError: onErrorCallback,
         onDisconnect,
         getLocalVideoTrack,
@@ -94,7 +96,7 @@ export function VideoProvider({ options, children, onError = () => {}, onDisconn
       }}
     >
       <SelectedParticipantProvider room={room}>{children}</SelectedParticipantProvider>
-      {/* 
+      {/*
         The AttachVisibilityHandler component is using the useLocalVideoToggle hook
         which must be used within the VideoContext Provider.
       */}
