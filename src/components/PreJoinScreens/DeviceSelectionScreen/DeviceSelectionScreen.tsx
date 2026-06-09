@@ -75,9 +75,6 @@ export default function DeviceSelectionScreen({ name, roomName, setStep }: Devic
       <Typography variant="h5" className={classes.gutterBottom}>
         Join {roomName}
       </Typography>
-      <Typography variant="body2" className={classes.recordingText}>
-        This call will be recorded for regulatory purporses.
-      </Typography>
       <Grid container justify="center">
         <Grid item md={7} sm={12} xs={12}>
           <div className={classes.localPreviewContainer}>
