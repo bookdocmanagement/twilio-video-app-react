@@ -65,6 +65,7 @@
     "start": "concurrently npm:server npm:dev",
     "dev": "react-scripts start",
     "build": "node ./scripts/build.js",
+    "build:qa": "cp .env.qa .env.production.local && node ./scripts/build.js",
     "test": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
